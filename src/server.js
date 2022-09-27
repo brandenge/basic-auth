@@ -6,12 +6,14 @@ const bcrypt = require('bcrypt');
 const base64 = require('base-64');
 const { Sequelize, DataTypes } = require('sequelize');
 
+const PORT = process.env.PORT || 3002;
+
 // NOTE: connected to sqlite::memory out of box for proof of life
-// TODO: 
+// TODO:
 // connect postgres for local dev environment and prod
 // handle SSL requirements
 // connect with sqlite::memory for testing
-const DATABASE_URL = 'sqlite::memory'
+const DATABASE_URL = 'sqlite::memory';
 
 // Prepare the express app
 const app = express();
@@ -33,7 +35,7 @@ const Users = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });
 
 // Signup Route -- create a new user
@@ -45,7 +47,7 @@ app.post('/signup', async (req, res) => {
   try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     const record = await Users.create(req.body);
-    res.status(200).json(record);
+    res.status(201).json(record);
   } catch (e) { res.status(403).send('Error Creating User'); }
 });
 
@@ -90,10 +92,8 @@ app.post('/signin', async (req, res) => {
 
 });
 
-// make sure our tables are created, start up the HTTP server.
-sequelize.sync()
-  .then(() => {
-    app.listen(3000, () => console.log('server up'));
-  }).catch(e => {
-    console.error('Could not start server', e.message);
-  });
+function start() {
+  app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+}
+
+module.exports = { app, start };
