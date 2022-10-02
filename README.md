@@ -9,7 +9,7 @@
 This lab demonstrates how to implement basic sign-up and sign-in functionality using Basic Auth on an Express application.
 
 - [CI/CD GitHub Actions](https://github.com/brandenge/basic-auth/actions)
-- [Back-end server url production](https://auth-api-server-88.herokuapp.com/)
+- [Back-end server url production](https://basic-auth-88.herokuapp.com/)
 
 ### Setup
 
@@ -26,6 +26,7 @@ This lab demonstrates how to implement basic sign-up and sign-in functionality u
 
 - POST : `/signup`
 - POST : `/signin`
+- GET : `/hello?name=value` - requires a `name` query parameter
 - GET : `*` - catch-all route which always responds with a 404 Not Found error.
 
 #### Tests
