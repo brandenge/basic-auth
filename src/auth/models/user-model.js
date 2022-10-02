@@ -33,7 +33,6 @@ const UserModel = sequelizeDatabase.define('User', {
 UserModel.beforeCreate(async (user) => {
   try {
     user.password = await bcrypt.hash(user.password, 5);
-    console.log('beforeCreate hook outputting user:', user);
   } catch (error) {
     throw new Error('Password encryption failed');
   }
