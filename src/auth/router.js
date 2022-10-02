@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/signup', async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log(`Username: ${username}, Password: ${password}`);
     const record = await UserModel.create({ username, password });
     res.status(201).json(record);
   } catch (error) {
