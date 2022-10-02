@@ -8,16 +8,21 @@ const DATABASE_URL = process.env.NODE_ENV === 'test'
   ? 'sqlite::memory'
   : process.env.DATABASE_URL;
 
-const options = process.env.NODE_ENV === 'production'
+const DATABASE_CONFIG = process.env.NODE_ENV === 'production'
   ? {
     dialectOptions: {
-      ssl: true,
-      rejectUnauthorized: false,
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
-  }
-  : {};
+    typeValidation: true,
+  } : {
+    logging: true,
+    typeValidation: true,
+  };
 
-const sequelizeDatabase = new Sequelize(DATABASE_URL, options);
+const sequelizeDatabase = new Sequelize(DATABASE_URL, DATABASE_CONFIG);
 
 const UserModel = sequelizeDatabase.define('User', {
   username: {
