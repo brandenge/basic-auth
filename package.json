@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "watch": "nodemon index.js",
     "test": "NODE_ENV=test jest --verbose --coverage",
     "test-watch": "NODE_ENV=test jest --watchAll --verbose --coverage",
